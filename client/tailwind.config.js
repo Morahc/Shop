@@ -1,9 +1,14 @@
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'hero': "url('./images/hero-background.jpg')",
+      },
+      fontFamily: {
+        raleway: ['Raleway']
+      }
+    },
   },
   plugins: [],
 }
