@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState,useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/auth/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { userInfo, error, loginUser } = useContext(AuthContext);
-  const [err, setErr] = useState(null);
+  const { userInfo, error: userError, loginUser } = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -15,20 +15,20 @@ const Login = () => {
     if (userInfo) {
       navigate('/');
     }
-    
-    if (error) {
-      setErr(error);
+    if (userError) {
+      setError(userError);
       setTimeout(() => {
-        setErr(null);
+        setError(null);
       }, 3000);
+      navigate('/login')
     }
-  }, [userInfo]);
+  }, [userInfo, userError]);
 
   const handleSubmit = () => {
     if (!formData.email || !formData.password) {
-      setErr('Invalid email or password');
+      setError('Invalid email or password');
       setTimeout(() => {
-        setErr(null);
+        setError(null);
       }, 3000);
       return;
     }
@@ -37,6 +37,9 @@ const Login = () => {
 
   return (
     <div className='flex flex-col justify-center items-center min-h-full h-screen'>
+      <Link to='/'>
+        <h1 className='mb-4'>Logo</h1>
+      </Link>
       <div className='flex flex-col items-center border rounded-sm w-3/4 md:w-1/4 p-6'>
         <h2>Login</h2>
         <form className='w-full mb-4'>
@@ -62,11 +65,11 @@ const Login = () => {
 
           <div className='flex justify-center'>
             <button className='button' type='button' onClick={handleSubmit}>
-              Submit
+              Sign In
             </button>
           </div>
-          {err && <p className='text-red-400 text-sm text-center italic'>{err}</p>}
         </form>
+        {error && <p className='text-red-400 text-sm text-center italic '>{error}</p>}
         <p className='text-xs'>
           Don&apos;t have an account?{' '}
           <span className='text-blue-400'>

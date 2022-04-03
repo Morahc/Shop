@@ -8,7 +8,7 @@ const Featured = () => {
   return (
     <section className='px-6'>
       <h1 className='mb-8 text-center'>Featured Products</h1>
-      <div className='grid grid-cols-2 md:grid-cols-5 gap-6'>
+      <div className='grid grid-cols-1 md:grid-cols-5 gap-6'>
         {
           isFeatured.map((product) => (
             <Product key={product.id} product={product} />

@@ -6,12 +6,12 @@ const Shop = () => {
   const { products } = useContext(ProductContext);
   
   return (
-    <section>
-      <div className='my-12 p-6'>
+    <section className='mt-20'>
+      <div className='mb-12 p-6'>
         <div className='flex mb-6 md:mb-8 justify-start'>
          <h1>Products</h1>
         </div>
-        <div className='grid grid-cols-2 md:grid-cols-5 gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-5 gap-6'>
           {products.map((product) => (
             <Product key={product.id} product={product} />
           ))}

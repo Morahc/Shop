@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
-import axios from 'axios';
+import users from '../../data/users';
 
 const AuthState = ({ children }) => {
   const initialState = {
@@ -11,19 +11,18 @@ const AuthState = ({ children }) => {
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-  const loginUser = async (formData) => {
+  const loginUser = (formData) => {
     try {
       dispatch({ type: 'USER_LOGIN_REQUEST' });
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      const { data } = await axios.post('/user/login', formData, config);
-
-      dispatch({ type: 'USER_LOGIN_SUCCESS', payload: data });
+      const user = users.find((user) => {
+        return user.email === formData.email && user.password === formData.password;
+      });
+      if (user) {
+        dispatch({ type: 'USER_LOGIN_SUCCESS', payload: user });
+      } else {
+        dispatch({ type: 'USER_LOGIN_FAIL', payload: 'Invalid credentials' });
+      }
     } catch (error) {
       dispatch({
         type: 'USER_LOGIN_FAIL',
@@ -32,19 +31,29 @@ const AuthState = ({ children }) => {
     }
   };
 
-  const registerUser = async (formData) => {
+  const registerUser = (formData) => {
     try {
       dispatch({ type: 'USER_REGISTER_REQUEST' });
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      const { data } = await axios.post('/user/register', formData, config);
-
-      dispatch({ type: 'USER_REGISTER_SUCCESS', payload: data });
+      const user = users.find((user) => {
+        user.email === formData.email;
+      });
+      if (user) {
+        dispatch({
+          type: 'USER_REGISTER_FAIL',
+          payload: 'Email already exists',
+        });
+      } else {
+        const newUser = {
+          id: users.length + 1,
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          cart: [],
+        };
+        users.push(newUser);
+        dispatch({ type: 'USER_REGISTER_SUCCESS', payload: newUser });
+      }
     } catch (error) {
       dispatch({
         type: 'USER_REGISTER_FAIL',
@@ -52,9 +61,13 @@ const AuthState = ({ children }) => {
       });
     }
   };
-  
+
   const logoutUser = () => {
     dispatch({ type: 'USER_LOGOUT' });
+  };
+
+  const addToCart = (product) => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
   };
 
   return (
@@ -65,7 +78,7 @@ const AuthState = ({ children }) => {
         loading: state.loading,
         loginUser,
         registerUser,
-        logoutUser
+        logoutUser,
       }}
     >
       {children}

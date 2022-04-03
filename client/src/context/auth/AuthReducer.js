@@ -34,7 +34,16 @@ export default (state, action) => {
       };
     case 'USER_LOGOUT':
       return {
+        ...state,
         userInfo: null,
+      };
+    case 'ADD_TO_CART':
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          cart: [...state.userInfo.cart, action.payload],
+        },
       };
     default:
       return state;
