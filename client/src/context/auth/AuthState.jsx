@@ -3,7 +3,7 @@ import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
 import axios from 'axios';
 
-const AuthState = ({children}) => {
+const AuthState = ({ children }) => {
   const initialState = {
     loading: false,
     error: null,
@@ -11,7 +11,7 @@ const AuthState = ({children}) => {
   };
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-  const loginUser = async ({ email, password }) => {
+  const loginUser = async (formData) => {
     try {
       dispatch({ type: 'USER_LOGIN_REQUEST' });
 
@@ -21,7 +21,7 @@ const AuthState = ({children}) => {
         },
       };
 
-      const { data } = await axios.post('/user/login', { email, password }, config);
+      const { data } = await axios.post('/user/login', formData, config);
 
       dispatch({ type: 'USER_LOGIN_SUCCESS', payload: data });
     } catch (error) {
@@ -32,13 +32,40 @@ const AuthState = ({children}) => {
     }
   };
 
+  const registerUser = async (formData) => {
+    try {
+      dispatch({ type: 'USER_REGISTER_REQUEST' });
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post('/user/register', formData, config);
+
+      dispatch({ type: 'USER_REGISTER_SUCCESS', payload: data });
+    } catch (error) {
+      dispatch({
+        type: 'USER_REGISTER_FAIL',
+        payload: error,
+      });
+    }
+  };
+  
+  const logoutUser = () => {
+    dispatch({ type: 'USER_LOGOUT' });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         userInfo: state.userInfo,
         error: state.error,
         loading: state.loading,
-        loginUser
+        loginUser,
+        registerUser,
+        logoutUser
       }}
     >
       {children}
