@@ -1,14 +1,25 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect,useState } from 'react';
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import ProductContext from '../../context/product/ProductContext';
+import AuthContext from '../../context/auth/AuthContext';
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const [qty, setQty] = useState(0)
   const { product, getProduct } = useContext(ProductContext);
+  const { addToCart, userInfo } = useContext(AuthContext);
 
   useEffect(() => {
     getProduct(Number(id));
   }, [id]);
+
+  const handleAddToCart = () => {
+    if(!userInfo) {
+      return toast('Please login to add to cart');
+    }
+    addToCart({...product, qty: qty});
+  }
 
   return (
     <main className='pt-20 pb-6 px-6'>
@@ -35,6 +46,8 @@ const ProductDetails = () => {
             <select
               className='bg-gray-200 p-2'
               disabled={product.countInStock === 0 ? true : false}
+              value={qty}
+              onChange={(e) => setQty(e.target.value)}
             >
               {[...Array(product.countInStock).keys()].map((x) => (
                 <option key={x + 1} value={x + 1}>
@@ -43,7 +56,7 @@ const ProductDetails = () => {
               ))}
             </select>
           </div>
-          <button className='button w-full'>Add to Cart</button>
+          <button className='button w-full' onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
     </main>

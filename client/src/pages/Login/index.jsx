@@ -1,9 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/auth/AuthContext';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userInfo, error: userError, loginUser } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -13,14 +15,13 @@ const Login = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate('/');
+      navigate(location.state ? location.state.from.pathname : '/');
     }
     if (userError) {
       setError(userError);
       setTimeout(() => {
         setError(null);
       }, 3000);
-      navigate('/login')
     }
   }, [userInfo, userError]);
 
@@ -30,7 +31,6 @@ const Login = () => {
       setTimeout(() => {
         setError(null);
       }, 3000);
-      return;
     }
     loginUser(formData);
   };

@@ -1,40 +1,28 @@
 export default (state, action) => {
   switch (action.type) {
-    case 'USER_LOGIN_REQUEST':
-      return {
-        ...state,
-        loading: true,
-      };
     case 'USER_LOGIN_SUCCESS':
       return {
-        ...state,
+        error: null,
         userInfo: action.payload,
       };
     case 'USER_LOGIN_FAIL':
       return {
-        ...state,
-        loading: false,
+        userInfo: null,
         error: action.payload,
-      };
-    case 'USER_REGISTER_REQUEST':
-      return {
-        ...state,
-        loading: true,
       };
     case 'USER_REGISTER_SUCCESS':
       return {
-        ...state,
+        error: null,
         userInfo: action.payload,
       };
     case 'USER_REGISTER_FAIL':
       return {
-        ...state,
-        loading: false,
+        userInfo: null,
         error: action.payload,
       };
     case 'USER_LOGOUT':
       return {
-        ...state,
+        error: null,
         userInfo: null,
       };
     case 'ADD_TO_CART':

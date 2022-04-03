@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Layout from './components/Layout';
 import Cart from './pages/Cart';
 import About from './pages/About';
+import PrivateRoutes from './components/PrivateRoutes';
 
 const App = () => {
   return (
@@ -16,7 +17,14 @@ const App = () => {
         <Route path='/products' element={<Products />} />
         <Route path='products/:id' element={<ProductDetails />} />
         <Route path='about' element={<About />} />
-        <Route path='cart' element={<Cart />} />
+        <Route
+          path='cart'
+          element={
+            <PrivateRoutes>
+              <Cart />
+            </PrivateRoutes>
+          }
+        />
       </Route>
 
       <Route path='/login' element={<Login />} />

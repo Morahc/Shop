@@ -5,7 +5,7 @@ import AuthContext from '../../context/auth/AuthContext';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, removeFromCart } = useContext(AuthContext);
 
   useEffect(() => {
     if (!userInfo) {
@@ -13,7 +13,7 @@ const Cart = () => {
     }
   }, [userInfo, navigate]);
 
-  const total = userInfo.cart.reduce((acc, curr) =>{
+  const total = userInfo.cart.reduce((acc, curr) => {
     return acc + curr.price * curr.qty;
   }, 0);
   return (
@@ -30,7 +30,7 @@ const Cart = () => {
         <section className='h-screen mt-20 px-4'>
           <div className='flex justify-center flex-wrap space-y-12 md:space-y-0 space-x-4'>
             <div className='basis-full md:basis-4/6 w-full overflow-x-auto'>
-            <h2 className='mb-8'>Shopping cart</h2>
+              <h2 className='mb-8'>Shopping cart</h2>
               <table className='text-sm text-center'>
                 <thead>
                   <tr>
@@ -47,7 +47,13 @@ const Cart = () => {
                       <td>{item.qty}</td>
                       <td>&#8358;{item.price}</td>
                       <td>
-                        <div className='grid place-items-center'>
+                        <div
+                          className='grid place-items-center'
+                          onClick={() => {
+                            removeFromCart(item);
+                            navigate('/cart');
+                          }}
+                        >
                           <FaTrashAlt />
                         </div>
                       </td>

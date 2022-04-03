@@ -33,10 +33,11 @@ const NavBar = () => {
                   <span>{userInfo.name}</span> <HiOutlineChevronDown />
                 </div>
                 <ul className='absolute hidden text-gray-700 pt-1 group-hover:block'>
-                  <li className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'>
-                    <NavLink to='/cart'>
-                      <span>Cart</span>
-                    </NavLink>
+                  <li
+                    className='rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap '
+                    onClick={() => navigate('/cart')}
+                  >
+                    <span>Cart</span>
                   </li>
                   <li
                     onClick={() => {
@@ -83,6 +84,7 @@ const NavBar = () => {
                   onClick={() => {
                     setIsOpen(false);
                     logoutUser();
+                    navigate('/');
                   }}
                 >
                   <span>Logout</span>
