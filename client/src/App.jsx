@@ -6,7 +6,7 @@ import ProductDetails from './pages/Products/ProductDetails';
 import Home from './pages/Home';
 import Layout from './components/Layout';
 import Cart from './pages/Cart';
-import AuthState from './context/auth/authState';
+import AuthState from './context/auth/AuthState';
 import ProductState from './context/product/ProductState';
 
 const App = () => {
