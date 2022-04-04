@@ -4,7 +4,7 @@ import AuthContext from '../../context/auth/AuthContext';
 
 const Register = () => {
   const navigate = useNavigate();
-  const { userInfo, error: userError, registerUser } = useContext(AuthContext);
+  const { userInfo, error: userError, registerUser,logoutUser } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -13,10 +13,13 @@ const Register = () => {
   });
 
   useEffect(() => {
-    if (userInfo) {
-      navigate('/');
+    if (userError) {
+      setError(userError);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
     }
-  }, [userInfo]);
+  }, [userError]);
 
   const handleSubmit = () => {
     if (!formData.name || !formData.email || !formData.password) {
@@ -30,14 +33,14 @@ const Register = () => {
       setError(userError);
       setTimeout(() => {
         setError(null);
-      }, 3000);
-      return;
+        logoutUser();
+      }, 2000);
     }
     registerUser(formData);
   };
   return (
     <div className='flex flex-col justify-center items-center min-h-full h-screen'>
-      <Link to='/'>
+      <Link to='/home'>
         <h1 className='mb-4'>Logo</h1>
       </Link>
       <div className='flex flex-col items-center border rounded-sm w-3/4 md:w-1/4 p-6'>

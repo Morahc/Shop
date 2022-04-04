@@ -1,12 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/auth/AuthContext';
-import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userInfo, error: userError, loginUser } = useContext(AuthContext);
+  const { userInfo, error: userError, loginUser, logoutUser } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     email: '',
@@ -21,7 +20,8 @@ const Login = () => {
       setError(userError);
       setTimeout(() => {
         setError(null);
-      }, 3000);
+        logoutUser();
+      }, 2000);
     }
   }, [userInfo, userError]);
 
@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div className='flex flex-col justify-center items-center min-h-full h-screen'>
-      <Link to='/'>
+      <Link to='/home'>
         <h1 className='mb-4'>Logo</h1>
       </Link>
       <div className='flex flex-col items-center border rounded-sm w-3/4 md:w-1/4 p-6'>

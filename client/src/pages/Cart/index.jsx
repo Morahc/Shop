@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaTrashAlt } from 'react-icons/fa';
 import AuthContext from '../../context/auth/AuthContext';
@@ -6,12 +6,6 @@ import AuthContext from '../../context/auth/AuthContext';
 const Cart = () => {
   const navigate = useNavigate();
   const { userInfo, removeFromCart } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/login');
-    }
-  }, [userInfo, navigate]);
 
   const total = userInfo.cart.reduce((acc, curr) => {
     return acc + curr.price * curr.qty;
