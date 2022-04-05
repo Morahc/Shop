@@ -14,7 +14,7 @@ const Product = ({ product }) => {
   };
 
   return (
-    <div className='w-full'>
+    <div className='w-full min-h-full'>
       <div className='flex flex-col items-center border-2 p-4'>
         <div className='h-2/3'>
           <Link to={`/products/${product.id}`}>

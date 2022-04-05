@@ -4,7 +4,7 @@ const Hero = () => {
   const navigate = useNavigate()
   return (
     <section className='flex-grow px-6'>
-      <div className='h-full flex flex-wrap items-center'>
+      <div className='h-full flex flex-wrap items-center justify-center'>
         <div className='basis-full md:basis-1/2 p-6 space-y-8'>
           <h1 className='text-6xl'>All New Phones up to 25% Flat Sale</h1>
           <p className='text-lg'>
