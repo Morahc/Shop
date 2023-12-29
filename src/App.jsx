@@ -2,7 +2,6 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Products from './pages/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProductDetails from './pages/Products/ProductDetails';
 import Home from './pages/Home';
 import Layout from './components/Layout';
 import Cart from './pages/Cart';
@@ -16,7 +15,6 @@ const App = () => {
         <Route path='/' element={<Navigate to='home' />} />
         <Route path='/home' element={<Home />} />
         <Route path='/products' element={<Products />} />
-        <Route path='products/:id' element={<ProductDetails />} />
         <Route
           path='cart'
           element={

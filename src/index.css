@@ -8,7 +8,10 @@
     @apply font-raleway;
   }
   label {
-    @apply block text-gray-600 text-sm mb-2 md:text-base;
+    @apply block text-gray-600 text-sm mb-2 lg:text-base;
+  }
+  td {
+    @apply text-xs lg:text-base
   }
 }
 

@@ -37,12 +37,12 @@ const Login = () => {
   };
 
   return (
-    <div className="container bg-background flex flex-col justify-center items-center min-h-full h-screen space-y-3 lg:space-y-6">
+    <div className="container  flex flex-col justify-center items-center min-h-full h-screen space-y-3 lg:space-y-6">
       <Link to="/home" className="flex gap-1 items-center">
         <BsGearWideConnected className="text-3xl" />
         <h2 className="text-xl lg:text-2xl italic">GizmoGuru</h2>
       </Link>
-      <div className="bg-white flex flex-col items-center border rounded-sm w-full md:w-1/4 p-6">
+      <div className="bg-white flex flex-col items-center border shadow rounded-sm w-full md:w-1/2 p-6">
         <h2 className='lg:text-lg font-semibold'>Login</h2>
         <form className="w-full mb-4">
           <div className="mb-4">
@@ -65,7 +65,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="flex justify-center">
+          <div>
             <button className="button" type="button" onClick={handleSubmit}>
               Sign In
             </button>

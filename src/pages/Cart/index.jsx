@@ -5,16 +5,21 @@ import AuthContext from "../../context/auth/AuthContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { userInfo, removeFromCart } = useContext(AuthContext);
+  const { userInfo, removeFromCart, clearCart } = useContext(AuthContext);
+
+  const onCheckOut = () => {
+    clearCart();
+  };
 
   const total = userInfo.cart.reduce((acc, curr) => {
     return acc + curr.price * curr.qty;
   }, 0);
+
   return (
     <div className="container">
       {userInfo.cart.length == 0 ? (
-        <section className="flex flex-col items-center justify-center h-screen">
-          <div className="bg-slate-100 flex flex-col items-center justify-center md:w-1/3 h-80 space-y-2">
+        <section className="flex flex-col justify-center h-screen">
+          <div className="text-center bg-slate-100 flex flex-col items-center justify-center md:w-1/3 h-80 space-y-2">
             <FaShoppingCart className="text-2xl h-24 w-24" />
             <p className="font-bold">Your cart is empty.</p>
             <p>You have not added any item to your cart.</p>
@@ -31,10 +36,9 @@ const Cart = () => {
                     <th className="text-left p-4">Item Name</th>
                     <th>Quantity</th>
                     <th>Item Price</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
-                <tbody className='divide-y'>
+                <tbody className="divide-y">
                   {userInfo.cart.map((item) => (
                     <tr key={item.id}>
                       <td className="text-left p-4 whitespace-nowrap">{item.productName}</td>
@@ -48,7 +52,7 @@ const Cart = () => {
                             navigate("/cart");
                           }}
                         >
-                          <FaTrashAlt className='text-red-500'/>
+                          <FaTrashAlt className="text-red-500" />
                         </div>
                       </td>
                     </tr>
@@ -56,20 +60,19 @@ const Cart = () => {
                 </tbody>
               </table>
             </div>
-            <div className="col-span-2 w-full space-y-4">
+            <div className="lg:col-span-2 space-y-2 lg:space-y-4">
               <h3 className="text-xl lg:text-3xl font-medium">Order Summary</h3>
-              <div>
-                <div className="w-full p-4 flex flex-col items-center space-y-6 bg-slate-100">
-                  <div className="flex justify-between w-full px-6">
-                    <span>Total Price:</span>
-                    <span>&#8358;{total}</span>
-                  </div>
-                  <div className="flex justify-between w-full px-6">
-                    <span>Subprice:</span>
-                    <span>&#8358;{total}</span>
-                  </div>
-                  <button className="button w-full">Checkout</button>
+
+              <div className="w-full p-4 flex flex-col items-center space-y-6 bg-slate-100">
+                <div className="flex justify-between w-full px-6">
+                  <span>Total Price:</span>
+                  <span>&#8358;{total}</span>
                 </div>
+                <div className="flex justify-between w-full px-6">
+                  <span>Subprice:</span>
+                  <span>&#8358;{total}</span>
+                </div>
+                <button onClick={onCheckOut} className="button bg-primary w-full">Checkout</button>
               </div>
             </div>
           </div>

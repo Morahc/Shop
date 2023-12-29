@@ -9,7 +9,7 @@ import Why from "./components/Why";
 const Home = () => {
   return (
     <section className="space-y-4 md:space-y-12 mt-12">
-      <div className="flex flex-col h-[calc(100vh-2rem)]">
+      <div className="flex flex-col h-[calc(100vh-3rem)]">
         <Hero />
       </div>
       <Categories />

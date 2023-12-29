@@ -95,6 +95,10 @@ const AuthState = ({ children }) => {
     );
   };
 
+  const clearCart = () => {
+    dispatch({ type: "CLEAR_CART" });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -106,6 +110,7 @@ const AuthState = ({ children }) => {
         logoutUser,
         addToCart,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}

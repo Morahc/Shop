@@ -6,13 +6,13 @@ const Hero = () => {
     <section className="container flex-grow">
       <div className="h-full flex items-center justify-betwwen gap-6">
         <div className="basis-full md:basis-1/2 space-y-8">
-          <h1 className="text-6xl lg:text-7xl">All New Phones up to 25% Flat Sale</h1>
+          <h1 className="text-5xl lg:text-7xl">All New Phones up to 25% Flat Sale</h1>
           <p className="text-base md:text-lg">
             From cutting-edge wonders to timeless classics, we curate a collection that transcends
             ordinary boundaries. At GizmoGuru, we don&apos;t just sell gadgets; we craft experiences that
             redefine the way you interact with technology.
           </p>
-          <button onClick={() => navigate("/products")} className="button-lg bg-primary">
+          <button onClick={() => navigate("/products")} className="py-2 px-4 lg:px-4 button-lg bg-primary">
             Shop Now
           </button>
         </div>
