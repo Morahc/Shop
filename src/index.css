@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply font-raleway;
+  }
+  label {
+    @apply block text-gray-600 text-sm mb-2 lg:text-base;
+  }
+  td {
+    @apply text-xs lg:text-base
+  }
+}
+
+@layer components {
+  .button-sm {
+    @apply bg-gray-900 text-white text-xs md:text-sm py-1 px-4 rounded-sm;
+  }
+  .button {
+    @apply bg-gray-900 text-white text-sm md:text-base py-1 px-4 md:py-2 md:px-6 rounded-sm;
+  }
+  .button-lg {
+    @apply bg-gray-900 text-white text-sm md:text-lg py-1 px-6 md:py-2 md:px-8 rounded-sm;
+  }
+  .form-input {
+    @apply border rounded-sm w-full py-2 px-3 text-gray-700 focus:outline-none;
+  }
+}
